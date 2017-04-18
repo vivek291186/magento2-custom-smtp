@@ -19,8 +19,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\ObjectManagerInterface $objectManager
     )
     {
+
         $this->_objectManager = $objectManager;
         parent::__construct($context);
+    }
+
+    public function getSmtpConfig($store_id = null)
+    {
+        return array(
+            'auth' => strtolower($this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/auth', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id)),
+            'ssl' => $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/ssltype', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id),
+            'username' => $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/username', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id),
+            'password' => $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/password', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id),
+            'port' => $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/port', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id)
+         );
     }
     
     /**
@@ -33,48 +45,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
     
     /**
-     * Get system config username
-     * 
-     * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
-     */
-    public function getConfigUsername($store_id = null){
-        return $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/username', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
-    }    
-    
-    /**
-     * Get system config password
-     * 
-     * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
-     */
-    public function getConfigAuth($store_id = null){
-        return $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/auth', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
-    }
-    
-    /**
-     * Get system config ssl
-     * 
-     * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
-     */
-    public function getConfigSsl($store_id = null){
-        return $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/ssl', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
-    }
-    
-    /**
-     * Get system config password
+     * Get system config SMTP host
      * 
      * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
      */
     public function getConfigSmtpHost($store_id = null){
-        return $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/smtphost', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
+        return $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/host', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
     }
-    
-    /**
-     * Get system config username
-     * 
-     * @param \Magento\Store\Model\ScopeInterface::SCOPE_STORE $store
-     */
-    public function getConfigPort($store_id = null){
-        return $this->scopeConfig->getValue('customsmtp/emizentechcustomsmtp/port', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store_id);
-    }
-    
 }
